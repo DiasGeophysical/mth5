@@ -36,7 +36,7 @@ from mth5.timeseries.ts_helpers import (
     get_decimation_sample_rates,
 )
 from obspy.core import Trace
-from scipy import signal
+import scipy
 
 # =============================================================================
 # make a dictionary of available metadata classes
@@ -1622,7 +1622,7 @@ class ChannelTS:
 
         """
 
-        plot_frequency, power = signal.welch(
+        plot_frequency, power = scipy.signal.welch(
             self.ts, fs=self.sample_rate, nperseg=window_length, **kwargs
         )
 
