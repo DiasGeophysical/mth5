@@ -908,7 +908,8 @@ class ChannelTS:
         """
         if self.is_high_frequency():
             dt_array = np.diff(self.data_array.coords.indexes["time"])
-            best_dt, counts = scipy.stats.mode(dt_array)
+            # GL: added np.int64 cast to deal with scipy floating vs ns dtype issues.
+            best_dt, counts = scipy.stats.mode(dt_array.astype(np.int64))
 
             # Calculate total seconds of the best dt and calculate sample rate
             best_dt_seconds = float(best_dt) / 1e9
